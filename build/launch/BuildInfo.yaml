@@ -1,6 +1,6 @@
 ---
 compiled_package_info:
-  package_name: launch_script
+  package_name: launch
   address_alias_instantiation:
     Extensions: "0000000000000000000000000000000000000000000000000000000000000001"
     aptos_framework: "0000000000000000000000000000000000000000000000000000000000000001"
@@ -11,7 +11,7 @@ compiled_package_info:
     std: "0000000000000000000000000000000000000000000000000000000000000001"
     vm: "0000000000000000000000000000000000000000000000000000000000000000"
     vm_reserved: "0000000000000000000000000000000000000000000000000000000000000000"
-  source_digest: 989056C4CC6F68BE2661A92F43D3594A737EDE0FEEFFD10EDC62CB495BDF732C
+  source_digest: 9F2B35721376546B47F14DA6D569E1457E40FEA4A8816A6E64292101BCB29200
   build_flags:
     dev_mode: false
     test_mode: false
@@ -21,8 +21,7 @@ compiled_package_info:
     full_model_generation: false
     install_dir: ~
     force_recompilation: false
-    additional_named_addresses:
-      launch: 46a5919e6af84782e924ba62d19362dbec4a607728a92ada636553fc4f702380
+    additional_named_addresses: {}
     architecture: ~
     fetch_deps_only: false
     skip_fetch_latest_git_deps: false

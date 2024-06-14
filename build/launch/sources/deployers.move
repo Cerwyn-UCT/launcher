@@ -8,7 +8,7 @@
     - can view the coins table
 */
 
-module launch::deployer {
+module launch::deployers {
 
     use aptos_framework::coin;
     use aptos_framework::aptos_coin::AptosCoin;
