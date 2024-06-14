@@ -12,6 +12,8 @@ module launcher::deployer {
     const INSUFFICIENT_APT_BALANCE: u64 = 1;
     const ERROR_NOT_INITIALIZED: u64 = 2;
 
+    struct Launcher {}
+
     public fun fungible(
         deployer: &signer,
         constructor_ref: &ConstructorRef,
