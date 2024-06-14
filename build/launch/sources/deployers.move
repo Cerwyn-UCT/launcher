@@ -183,7 +183,7 @@ module launch::deployers {
         transfer_ref: TransferRef,
         burn_ref: BurnRef,
     }
-    
+
     public fun generate_coin_v5(
         constructor_ref: &ConstructorRef,
         name: String,
@@ -211,6 +211,27 @@ module launch::deployers {
         
         MintBurnTransfer { mint_ref, burn_ref, transfer_ref }
         // Do the fee
+    }
+
+     public fun generate_coin_v6(
+        constructor_ref: &ConstructorRef,
+        name: String,
+        symbol: String,
+        icon: String,
+        project: String,
+        decimals: u8,
+        total_supply: u64,
+        monitor_supply: bool,
+    ) {        
+        primary_fungible_store::create_primary_store_enabled_fungible_asset(
+            constructor_ref,
+            option::none(),
+            name, /* name */
+            symbol, /* symbol */
+            decimals, /* decimals */
+            icon, /* icon */
+            project, /* project */
+        )
     }
 
     // Generates a new coin and mints the total supply to the deployer. capabilties are then destroyed
