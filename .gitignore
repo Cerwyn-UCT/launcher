@@ -1,1 +1,4 @@
 .aptos
+--.aptos
+build/
+legacy/

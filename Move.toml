@@ -1,10 +1,10 @@
 [package]
-name = "launch"
+name = "launcher"
 version = "1.0.0"
 authors = []
 
 [addresses]
-launch = "46a5919e6af84782e924ba62d19362dbec4a607728a92ada636553fc4f702380"
+launcher = "61cd244d871bdc173b1646470773642034f5ef4ccab5c0cf5b137672c5c386d1"
 
 [dev-addresses]
 
