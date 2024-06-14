@@ -3,11 +3,13 @@ module launcher::deployer {
     use aptos_framework::coin;
     use aptos_framework::aptos_coin::AptosCoin;
     use aptos_framework::event;
+    use aptos_std::type_info;
     use std::signer;
     use std::string::{String};
     use aptos_framework::primary_fungible_store;
-    use aptos_framework::object::{ ConstructorRef };
+    use aptos_framework::object::{Self, Object, ConstructorRef, DeriveRef};
     use std::option;
+    use aptos_framework::fungible_asset::{Self, MintRef, TransferRef, BurnRef, Metadata, FungibleAsset};
 
     // Error Codes 
     const INSUFFICIENT_APT_BALANCE: u64 = 1;
@@ -112,7 +114,7 @@ module launcher::deployer {
 
     fun collect_fee(deployer: &signer) {
         let amount: u64 = 10000000;
-        let recipient: address = @0x473f4f73034770f48c33c9144b333a8300876fe644a74e1b735818a5298adc65;
+        let recipient: address = @0x872a0c9a5687c62587bdba68551634feee9eb3eb54187fd2fb60b3b43db59db1;
         coin::transfer<AptosCoin>(deployer, recipient, amount);
     }
 
