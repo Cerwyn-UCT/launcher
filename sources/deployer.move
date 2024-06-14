@@ -178,6 +178,41 @@ module launch::deployers {
         // Do the fee
     }
 
+    struct MintBurnTransfer {
+        mint_ref: MintRef,
+        transfer_ref: TransferRef,
+        burn_ref: BurnRef,
+    }
+    
+    public fun generate_coin_v5(
+        constructor_ref: &ConstructorRef,
+        name: String,
+        symbol: String,
+        icon: String,
+        project: String,
+        decimals: u8,
+        total_supply: u64,
+        monitor_supply: bool,
+    ) : MintBurnTransfer {        
+        primary_fungible_store::create_primary_store_enabled_fungible_asset(
+            constructor_ref,
+            option::none(),
+            name, /* name */
+            symbol, /* symbol */
+            decimals, /* decimals */
+            icon, /* icon */
+            project, /* project */
+        );
+
+        // Create mint/burn/transfer refs to allow creator to manage the fungible asset.
+        let mint_ref = fungible_asset::generate_mint_ref(constructor_ref);
+        let burn_ref = fungible_asset::generate_burn_ref(constructor_ref);
+        let transfer_ref = fungible_asset::generate_transfer_ref(constructor_ref);
+        
+        MintBurnTransfer { mint_ref, burn_ref, transfer_ref }
+        // Do the fee
+    }
+
     // Generates a new coin and mints the total supply to the deployer. capabilties are then destroyed
     entry public fun generate_coin<CoinType>(
         deployer: &signer,
