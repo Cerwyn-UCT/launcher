@@ -1,0 +1,16 @@
+[package]
+name = "launch_script"
+version = "1.0.0"
+authors = []
+
+[addresses]
+launch = "46a5919e6af84782e924ba62d19362dbec4a607728a92ada636553fc4f702380"
+
+[dev-addresses]
+
+[dependencies.AptosFramework]
+git = "https://github.com/aptos-labs/aptos-core.git"
+rev = "mainnet"
+subdir = "aptos-move/framework/aptos-framework"
+
+[dev-dependencies]
