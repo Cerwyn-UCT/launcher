@@ -2,6 +2,7 @@
 module launcher::deployer {
     use aptos_framework::coin;
     use aptos_framework::aptos_coin::AptosCoin;
+    use aptos_framework::event;
     use std::signer;
     use std::string::{String};
     use aptos_framework::primary_fungible_store;
@@ -11,8 +12,24 @@ module launcher::deployer {
     // Error Codes 
     const INSUFFICIENT_APT_BALANCE: u64 = 1;
     const ERROR_NOT_INITIALIZED: u64 = 2;
+    const ERROR_INVALID_ACCOUNT: u64 = 3;
 
     struct Launcher {}
+
+    struct Config has key {
+        owner: address,
+    }
+
+    #[event]
+    struct NewOwnerEvent has drop, store { new_owner: address }
+    fun emit_new_owner_event(new_owner: address) {
+        event::emit<NewOwnerEvent>(NewOwnerEvent { new_owner })
+    }
+
+    entry public fun init(caller: &signer, owner: address){
+        assert!(signer::address_of(caller) == @launcher, ERROR_INVALID_ACCOUNT);
+        move_to(caller, Config { owner })
+    }
 
     public fun fungible(
         deployer: &signer,
@@ -24,10 +41,10 @@ module launcher::deployer {
         project: String,
     ) {
         // the deployer must have enough APT to pay for the fee
-        assert!(
-            coin::balance<AptosCoin>(signer::address_of(deployer)) >= 10000000,
-            INSUFFICIENT_APT_BALANCE
-        );
+        // assert!(
+        //     coin::balance<AptosCoin>(signer::address_of(deployer)) >= 10000000,
+        //     INSUFFICIENT_APT_BALANCE
+        // );
 
         primary_fungible_store::create_primary_store_enabled_fungible_asset(
             constructor_ref,
@@ -52,10 +69,10 @@ module launcher::deployer {
         monitor_supply: bool,
     ) {        
         // the deployer must have enough APT to pay for the fee
-        assert!(
-            coin::balance<AptosCoin>(signer::address_of(deployer)) >= 10000000,
-            INSUFFICIENT_APT_BALANCE
-        );
+        // assert!(
+        //     coin::balance<AptosCoin>(signer::address_of(deployer)) >= 10000000,
+        //     INSUFFICIENT_APT_BALANCE
+        // );
         let deployer_addr = signer::address_of(deployer);
         let (
             burn_cap, 
