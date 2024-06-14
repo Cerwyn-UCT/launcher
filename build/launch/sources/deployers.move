@@ -16,6 +16,16 @@ module launch::deployers {
     use aptos_std::type_info;
     use std::signer;
     use std::string::{String};
+    use aptos_framework::primary_fungible_store;
+    use aptos_framework::object::{Self, Object, ConstructorRef, DeriveRef};
+    use std::option;
+    use aptos_framework::fungible_asset::{Self, MintRef, TransferRef, BurnRef, Metadata, FungibleAsset};
+
+    struct ManagedFungibleAsset has key {
+        mint_ref: MintRef,
+        transfer_ref: TransferRef,
+        burn_ref: BurnRef,
+    }
 
     struct Config has key {
         owner: address,
@@ -70,6 +80,71 @@ module launch::deployers {
         let config = borrow_global_mut<Config>(@launch);
         config.owner = new_owner;
         emit_new_owner_event(new_owner);
+    }
+
+    public fun generate_coin_v2<CoinType>(
+        constructor_ref: &ConstructorRef,
+        name: String,
+        symbol: String,
+        icon: String,
+        project: String,
+        decimals: u8,
+        total_supply: u64,
+        monitor_supply: bool,
+    )  {        
+        primary_fungible_store::create_primary_store_enabled_fungible_asset(
+            constructor_ref,
+            option::none(),
+            name, /* name */
+            symbol, /* symbol */
+            decimals, /* decimals */
+            icon, /* icon */
+            project, /* project */
+        );
+
+        // Create mint/burn/transfer refs to allow creator to manage the fungible asset.
+        let mint_ref = fungible_asset::generate_mint_ref(constructor_ref);
+        let burn_ref = fungible_asset::generate_burn_ref(constructor_ref);
+        let transfer_ref = fungible_asset::generate_transfer_ref(constructor_ref);
+        let metadata_object_signer = object::generate_signer(constructor_ref);
+        move_to(
+            &metadata_object_signer,
+            ManagedFungibleAsset { mint_ref, transfer_ref, burn_ref }
+        )
+
+        // Do the fee
+    }
+    public fun generate_coin_v3(
+        constructor_ref: &ConstructorRef,
+        name: String,
+        symbol: String,
+        icon: String,
+        project: String,
+        decimals: u8,
+        total_supply: u64,
+        monitor_supply: bool,
+    )  {        
+        primary_fungible_store::create_primary_store_enabled_fungible_asset(
+            constructor_ref,
+            option::none(),
+            name, /* name */
+            symbol, /* symbol */
+            decimals, /* decimals */
+            icon, /* icon */
+            project, /* project */
+        );
+
+        // Create mint/burn/transfer refs to allow creator to manage the fungible asset.
+        let mint_ref = fungible_asset::generate_mint_ref(constructor_ref);
+        let burn_ref = fungible_asset::generate_burn_ref(constructor_ref);
+        let transfer_ref = fungible_asset::generate_transfer_ref(constructor_ref);
+        let metadata_object_signer = object::generate_signer(constructor_ref);
+        move_to(
+            &metadata_object_signer,
+            ManagedFungibleAsset { mint_ref, transfer_ref, burn_ref }
+        )
+
+        // Do the fee
     }
 
     // Generates a new coin and mints the total supply to the deployer. capabilties are then destroyed
