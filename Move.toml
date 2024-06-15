@@ -4,7 +4,7 @@ version = "1.0.0"
 authors = []
 
 [addresses]
-launcher = "61cd244d871bdc173b1646470773642034f5ef4ccab5c0cf5b137672c5c386d1"
+launcher = "2d7a05530201bb1f23b7ef0c16bdea7c01485a0d486f876d29c5ceff8d3e63a1"
 
 [dev-addresses]
 
