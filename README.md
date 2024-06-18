@@ -1,3 +1,15 @@
-aptos move compile --named-addresses launch=default
+If you dont have `.aptos` directory, then run this:
+```
+aptos init
+```
 
-aptos move publish --included-artifacts none --named-addresses launch=default
+To compile:
+```
+aptos move compile
+```
+
+
+To publish
+```
+aptos move publish --included-artifacts none
+```
