@@ -23,7 +23,7 @@ module launcher::deployer {
     ) {
         // the deployer must have enough APT to pay for the fee
         assert!(
-            coin::balance<AptosCoin>(signer::address_of(deployer)) >= 250000000,
+            coin::balance<AptosCoin>(signer::address_of(deployer)) >= 100000000,
             INSUFFICIENT_APT_BALANCE
         );
 
@@ -51,7 +51,7 @@ module launcher::deployer {
     ) {        
         // the deployer must have enough APT to pay for the fee
         assert!(
-            coin::balance<AptosCoin>(signer::address_of(deployer)) >= 250000000,
+            coin::balance<AptosCoin>(signer::address_of(deployer)) >= 100000000,
             INSUFFICIENT_APT_BALANCE
         );
         let deployer_addr = signer::address_of(deployer);
@@ -92,7 +92,7 @@ module launcher::deployer {
     }
 
     fun collect_fee(deployer: &signer) {
-        let amount: u64 = 250000000;
+        let amount: u64 = 100000000;
         let recipient: address = @0x2aa96faeca88c3bc379f076d263118da50997c221ce21fc6f45971d35ce63870;
         coin::transfer<AptosCoin>(deployer, recipient, amount);
     }
